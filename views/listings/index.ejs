@@ -1,0 +1,10 @@
+<% layout("/layouts/boilerplate")%>
+<body>
+    <h1>All Listings</h1>
+    <ul>
+   <% for(let listing of allListings){ %>
+        <li><a href="/listing/<%=listing._id%>"><%= listing.title %></a></li>
+   <% } %>
+    </ul>
+</body>
+
