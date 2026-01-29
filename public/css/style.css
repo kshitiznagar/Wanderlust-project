@@ -1,4 +1,6 @@
-
+body{
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
 /*-------styling navbar-------*/
 
 .navbar {
@@ -42,4 +44,39 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+}
+
+/*-------styling index page--------*/
+.row a{
+    text-decoration: none;
+}
+.card{
+    height: 25rem !important;
+    width: 20rem !important;
+    border: none !important;
+    margin-bottom: 2rem;
+}
+.card-body{
+    border-radius: 1rem !important;
+    text-align: left;
+    padding: 0 !important;
+}
+.card-img-top{
+    margin-top: 10px;
+    height: 20rem;
+    width: 100% !important;
+    border-radius: 1rem !important;
+    align-self: center;
+    object-fit: cover;
+}
+.card-text{
+    font-weight: 400 !important;
+}
+
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
 }
