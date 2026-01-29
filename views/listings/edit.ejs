@@ -1,20 +1,42 @@
+<% layout("/layouts/boilerplate")%>
 
-<body>
-    <h3>Edit listing</h3>
-       <form method="post" action="/listings/<%=editListing._id%>?_method=PUT" >
-        <input type="text" name="editListing[title]" value="<%=editListing.title%>">
-        <br><br>
-        <textarea name="editListing[description]" ><%=editListing.description%></textarea>
-        <br><br>
-        <input type="text" name="editListing[image]" value="<%=editListing.image%>">
-        <br><br>
-        <input type="number" name="editListing[price]" value="<%=editListing.price%>">
-        <br><br>
-        <input type="text" name="editListing[location]" value="<%=editListing.location%>">
-        <br><br>
-        <input type="text" name="editListing[country]" value="<%=editListing.country%>">
-        <br><br>
-        <button>Add</button>
-    </form>
-    
-</body>
+    <body>
+        <div class="row mt-3">
+            <div class="col-8 offset-2">
+                <h3>Edit hotel details</h3>
+                <form method="post" action="/listings/<%=editListing._id%>?_method=PUT">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" name="editListing[title]" value="<%=editListing.title%>"
+                            class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">description</label>
+                        <textarea name="editListing[description]"
+                            class="form-control"><%=editListing.description%></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image.url" class="form-label">Image link</label>
+                        <input type="text" name="editListing[image]" value="<%=editListing.image.url%>"
+                            class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" name="editListing[price]" value="<%=editListing.price%>"
+                                class="form-control">
+                        </div>
+                        <div class="mb-3 col-md-8">
+                            <label for="country" class="form-label">Country</label>
+                            <input type="text" name="editListing[country]" value="<%=editListing.country%>" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" name="editListing[location]" value="<%=editListing.location%>" class="form-control">
+                    </div>
+                    <button class="btn btn-dark edit-btn mt-3">Add</button>
+                </form>
+            </div>
+        </div>
+    </body>

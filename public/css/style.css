@@ -89,6 +89,7 @@ body{
 
 /*-------styling new hotel adding page-------*/
 /*most of stylin is done by bootstrap classes*/
-.add-btn{
+.add-btn,.edit-btn{
     background-color:#fe424d !important;
+    border: none !important;
 }

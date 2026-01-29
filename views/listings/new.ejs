@@ -1,11 +1,9 @@
 <% layout("/layouts/boilerplate")%>
 
     <body>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-8 offset-2">
-                <br>
                 <h3>Add new Hotel</h3>
-                <br>
                 <form action="/listing/new" method="post">
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
@@ -36,7 +34,7 @@
                         <input type="text" name="listing[location]" placeholder="jaipur" class="form-control">
                     </div>
 
-                    <button class="btn btn-dark add-btn">Add</button>
+                    <button class="btn btn-dark add-btn mt-3">Add</button>
                     <br><br>
                 </form>
             </div>
