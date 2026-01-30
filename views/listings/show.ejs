@@ -1,19 +1,32 @@
+<% layout("/layouts/boilerplate")%>
 
-<body>
-    <h1>Details about listing</h1>
-    <ul>
-        <li><%=listing.title%></li>
-        <li><%=listing.description%></li>
-        <li>&#8377; <%=listing.price.toLocaleString("en-IN")%></li>
-        <li><%=listing.location%></li>
-        <li><%=listing.country%></li>
-    </ul>
-    <form action="/listing/<%=listing._id%>/edit" method="get">
-        <button>Edit</button>
-    </form><form method="post" action="/listing/<%=listing._id%>/delete?_method=delete">
-            <button>Delete</button>
-        </form>
-    
-</body>
+    <body>
+        <div class="row">
+            <div class="col-8 offset-3">
+                <h1>Details about listing</h1>
+            </div>
+            <div class="card col-6 offset-3 show-card">
+                <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="hotel image">
+                <div class="card-body">
+                    <p class="card-text">
+                        <b>
+                            <%=listing.title%>
+                        </b><br>
+                        <%=listing.description%> <br>
+                            &#8377; <%=listing.price.toLocaleString("en-IN")%>/night <br>
+                                <%=listing.location%> <br>
+                                    <%=listing.country%> <br>
+                    </p>
+                </div>
+            </div>
+            <div class="col-8 offset-3 btns">
+                <form action="/listing/<%=listing._id%>/edit" method="get">
+                    <button class="btn btn-dark mt-3 edit-btn">Edit</button>
+                </form>
+                <form method="post" action="/listing/<%=listing._id%>/delete?_method=delete">
+                    <button class="btn btn-dark mt-3 offset-2 delete-btn">Delete</button>
+                </form>
+            </div>
+        </div>
 
-
+    </body>

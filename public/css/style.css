@@ -7,6 +7,9 @@ body{
 .container{
     flex: 1;
 }
+.card{
+    border: none !important;
+}
 /*-------styling navbar-------*/
 
 .navbar {
@@ -56,7 +59,7 @@ body{
 .row a{
     text-decoration: none;
 }
-.card{
+.index-card{
     height: 25rem !important;
     width: 20rem !important;
     border: none !important;
@@ -92,4 +95,18 @@ body{
 .add-btn,.edit-btn{
     background-color:#fe424d !important;
     border: none !important;
+}
+
+/*-----styling show page-------*/
+.show-img{
+    height: 40vh !important;
+    width: 100% !important;
+}
+.btns{
+    display: flex;
+    padding: 0 !important;
+}
+.show-card{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
