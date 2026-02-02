@@ -64,6 +64,7 @@ body{
     width: 20rem !important;
     border: none !important;
     margin-bottom: 2rem;
+    margin-right: 10px !important;
 }
 .card-body{
     border-radius: 1rem !important;
@@ -77,6 +78,7 @@ body{
     border-radius: 1rem !important;
     align-self: center;
     object-fit: cover;
+    margin-right: 10px !important;
 }
 .card-text{
     font-weight: 400 !important;
