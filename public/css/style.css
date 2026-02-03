@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body{
   font-family: "Plus Jakarta Sans", sans-serif !important;
   display: flex;
@@ -10,6 +11,9 @@ body{
 .card{
     border: none !important;
 }
+=======
+
+>>>>>>> parent of 2c14b8a (today we add styling on index page means on home page and also add overlay functionality)
 /*-------styling navbar-------*/
 
 .navbar {
@@ -57,6 +61,7 @@ body{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+<<<<<<< HEAD
 }
 
 /*-------styling index page--------*/
@@ -115,4 +120,6 @@ body{
 .show-card{
     padding-left: 0 !important;
     padding-right: 0 !important;
+=======
+>>>>>>> parent of 2c14b8a (today we add styling on index page means on home page and also add overlay functionality)
 }

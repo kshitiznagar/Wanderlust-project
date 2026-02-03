@@ -1,14 +1,13 @@
 <% layout("/layouts/boilerplate")%>
 
     <body>
-        <br>
-        <h1>All Hotels</h1>
-        <div class="row row-cols-xl-3 row-cols-lg-2 row-cols-md-2 row-cols-sm-1 row-cols-1">
+        <h1>All Listings</h1>
+        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
             <% for(let listing of allListings){ %>
                 <a href="/listing/<%=listing._id%>">
                     <!-- <li><a href="/listing/<%=listing._id%>"><%= listing.title %></a></li> -->
-                    <div class="card col index-card">
-                        <img src="<%=listing.image.url%>" class="card-img-top index-img" alt="...">
+                    <div class="card col">
+                        <img src="<%=listing.image.url%>" class="card-img-top" alt="...">
                         <div class="card-img-overlay"></div>
                         <div class="card-body">
                             <p class="card-text">
@@ -16,7 +15,7 @@
                                     <%=listing.title%>
                                 </b>
                                 <br>
-                                &#8377;<%=listing.price%>/night
+                                &#8377;<%=listing.price.toLocaleString("en-IN")%>/night
                             </p>
                         </div>
                     </div>
