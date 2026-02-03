@@ -23,9 +23,6 @@ body{
 .nav-link{
     color: #222222 !important;
 }
-.navbar-nav{
-    background-color: white;
-}
 
 /*------------styling footer----------*/
 .f-info-links a {
@@ -65,13 +62,13 @@ body{
 /*-------styling index page--------*/
 .row a{
     text-decoration: none;
-    display: flex;
 }
 .index-card{
     height: 25rem !important;
-    width: 25rem !important;
+    width: 20rem !important;
     border: none !important;
     margin-bottom: 2rem;
+    margin-right: 10px !important;
 }
 .card-body{
     border-radius: 1rem !important;
@@ -85,6 +82,7 @@ body{
     border-radius: 1rem !important;
     align-self: center;
     object-fit: cover;
+    margin-right: 10px !important;
 }
 .card-text{
     font-weight: 400 !important;
