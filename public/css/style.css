@@ -46,8 +46,12 @@ body{
 .f-info-socials i {
     margin-right: 1rem;
     font-size: 1.2rem;
+    opacity: 0.7;
 }
-
+.f-info-socials i:hover{
+    cursor: pointer;
+    opacity: 1;
+}
 .f-info{
     text-align: center;
     display: flex;
