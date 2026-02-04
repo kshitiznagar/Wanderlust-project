@@ -59,15 +59,15 @@ app.get("/listings/new", (req, res) => {
 
 app.get("/listing/:id/edit", async (req, res) => {
     let { id } = req.params;
-    let editListing = await Listing.findById(id);
-    res.render("./listings/edit.ejs", { editListing });
+    let listing = await Listing.findById(id);
+    res.render("./listings/edit.ejs", { listing });
 })
 
 //---------update route--------
 
 app.put("/listings/:id", async (req, res) => {
     let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.editListing });
+    await Listing.findByIdAndUpdate(id, {...req.body.editListing });
     res.redirect("/listings");
 })
 //----------delete route---------

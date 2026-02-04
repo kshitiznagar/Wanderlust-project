@@ -1,4 +1,4 @@
-<<<<<<< HEAD body {
+body {
     font-family: "Plus Jakarta Sans", sans-serif !important;
     display: flex;
     flex-direction: column;
@@ -62,12 +62,12 @@
 .f-info {
     text-align: center;
     display: flex;
-    height: 8rem;
+    height: 9rem;
     background-color: #ebebeb;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: space-evenly;
     justify-content: center;
-
+    margin-top: 1rem;
 }
 /*-------styling index page--------*/
 .row a {
@@ -118,7 +118,10 @@
     background-color: #fe424d !important;
     border: none !important;
 }
-
+.edit-btn a{
+    text-decoration: none;
+    color: white;
+}
 /*-----styling show page-------*/
 .show-img {
     height: 40vh !important;

@@ -4,37 +4,37 @@
         <div class="row mt-3">
             <div class="col-8 offset-2">
                 <h3>Edit hotel details</h3>
-                <form method="post" action="/listings/<%=editListing._id%>?_method=PUT">
+                <form method="post" action="/listings/<%=listing._id%>?_method=PUT">
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" name="editListing[title]" value="<%=editListing.title%>"
+                        <input type="text" name="listing[title]" value="<%=listing.title%>"
                             class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">description</label>
-                        <textarea name="editListing[description]"
-                            class="form-control"><%=editListing.description%></textarea>
+                        <textarea name="listing[description]"
+                            class="form-control"><%=listing.description%></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="image.url" class="form-label">Image link</label>
-                        <input type="text" name="editListing[image]" value="<%=editListing.image.url%>"
+                        <input type="text" name="listing[image.url]" value="<%=listing.image.url%>"
                             class="form-control">
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="price" class="form-label">Price</label>
-                            <input type="number" name="editListing[price]" value="<%=editListing.price%>"
+                            <input type="number" name="listing[price]" value="<%=listing.price%>"
                                 class="form-control">
                         </div>
                         <div class="mb-3 col-md-8">
                             <label for="country" class="form-label">Country</label>
-                            <input type="text" name="editListing[country]" value="<%=editListing.country%>"
+                            <input type="text" name="listing[country]" value="<%=listing.country%>"
                                 class="form-control">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="location" class="form-label">Location</label>
-                        <input type="text" name="editListing[location]" value="<%=editListing.location%>"
+                        <input type="text" name="listing[location]" value="<%=listing.location%>"
                             class="form-control">
                     </div>
                     <button class="btn btn-dark edit-btn mt-3">Add</button>
