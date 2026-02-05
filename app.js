@@ -44,6 +44,18 @@ app.get("/", (req, res) => {
     res.redirect("/listings")
 });
 
+//----------function for server side validation using JOI-----------
+
+const validateListing = (req, res, next) => {
+    let {error} = listingSchema.validate(req.body);
+    let errorMsg = error.details.map((el) => el.message).join(",");
+    if (error) {
+        throw new expressError(400,errorMsg);
+    }else{
+        next();
+    }
+}
+
 //-----------index route-----------
 
 app.get("/listings", wrapAsync(async (req, res) => {
@@ -68,10 +80,7 @@ app.get("/listing/:id/edit", wrapAsync(async (req, res) => {
 
 //---------update route--------
 
-app.put("/listings/:id", wrapAsync(async (req, res) => {
-    if (!req.body.listing) {
-        throw new expressError(400, "Send valid data for listing");
-    };
+app.put("/listings/:id",validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect("/listings");
@@ -94,11 +103,7 @@ app.get("/listing/:id", wrapAsync(async (req, res) => {
 
 //----------create route------------
 
-app.post("/listing/new", wrapAsync(async (req, res, next) => {
-    let result = listingSchema.validate(req.body);
-    if(result.error){
-        throw new expressError(400,result.error);
-    }
+app.post("/listing/new",validateListing, wrapAsync(async (req, res, next) => {
 
     // let {title,description,image,price,location,country} = req.params; first method is this but to ignore we make objects in new ejs file
 
