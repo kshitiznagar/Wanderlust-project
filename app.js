@@ -7,7 +7,7 @@ const Review = require("./models/reviews.js");
 const path = require("path");
 const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/expressError.js");
-const { listingSchema } = require("./schema.js");
+const { listingSchema, reviewSchema } = require("./schema.js");
 
 //ejs-mate is used to make layout boilerplate by eliminating common lines for example navbar will be same on different pages
 
@@ -49,6 +49,15 @@ app.get("/", (req, res) => {
 
 const validateListing = (req, res, next) => {
     let {error} = listingSchema.validate(req.body);
+    let errorMsg = error.details.map((el) => el.message).join(",");
+    if (error) {
+        throw new expressError(400,errorMsg);
+    }else{
+        next();
+    }
+}
+const validateReview = (req, res, next) => {
+    let {error} = reviewSchema.validate(req.body);
     let errorMsg = error.details.map((el) => el.message).join(",");
     if (error) {
         throw new expressError(400,errorMsg);
@@ -113,7 +122,7 @@ app.post("/listing/new",validateListing, wrapAsync(async (req, res, next) => {
     res.redirect("/listings");
 }));
 
-app.post("/listing/:id/reviews",async (req,res)=>{
+app.post("/listing/:id/reviews",validateReview,wrapAsync(async (req,res)=>{
     let listing = await Listing.findById(req.params.id);
     let newReview = await Review(req.body.Review);
     console.log(newReview);
@@ -122,7 +131,7 @@ app.post("/listing/:id/reviews",async (req,res)=>{
     await listing.save();
 
     res.redirect(`/listing/${listing._id}`);
-})
+}));
 
 
 //"*" valid before express v5 
