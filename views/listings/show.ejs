@@ -2,15 +2,17 @@
 
     <body>
         <div class="row">
-            <div class="col-8 offset-3">
-                <h1>Details about listing</h1>
+            <div class="col-8 offset-3 index-heading">
+                <br>
+                <h1>
+                    <%=listing.title%>
+                </h1>
             </div>
             <div class="card col-6 offset-3 show-card">
                 <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="hotel image">
                 <div class="card-body">
                     <p class="card-text">
                         <b>
-                            <%=listing.title%>
                         </b><br>
                         <%=listing.description%> <br>
                             &#8377; <%=listing.price.toLocaleString("en-IN")%>/night <br>
@@ -21,12 +23,29 @@
             </div>
             <div class="col-8 offset-3 btns">
                 <form>
-                    <button class="btn btn-dark mt-3 edit-btn"><a href="/listing/<%=listing._id%>/edit">Edit</a></button>
+                    <button class="btn btn-dark mt-3 edit-btn"><a
+                            href="/listing/<%=listing._id%>/edit">Edit</a></button>
                 </form>
                 <form method="post" action="/listing/<%=listing._id%>/delete?_method=delete">
                     <button class="btn btn-dark mt-3 offset-2 delete-btn">Delete</button>
                 </form>
             </div>
+        </div>
+        <hr>
+        <div class="col-8 offset-3">
+            <h4>Leave a review</h4>
+            <form action="/listing/<%=listing._id%>/reviews" class="mb-3 needs-validation" method="post" novalidate>
+                <div class="mb-3 mt-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="range" name="Review[rating]" min="1" max="5" id="rating" class="form-range" required>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="comment" class="form-label">Comments</label>
+                    <textarea name="Review[comment]" id="comment" rows="3" cols="20" class="form-control" required></textarea>
+                    <div class="invalid-feedback">Please write your thoughts about place</div>
+                </div>
+                <button class="btn btn-outline-dark">Submit</button>
+            </form>
         </div>
 
     </body>

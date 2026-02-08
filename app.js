@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const Listing = require("./models/listing");
+const Review = require("./models/reviews.js");
 const path = require("path");
 const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/expressError.js");
@@ -111,6 +112,17 @@ app.post("/listing/new",validateListing, wrapAsync(async (req, res, next) => {
     await newListing.save();
     res.redirect("/listings");
 }));
+
+app.post("/listing/:id/reviews",async (req,res)=>{
+    let listing = await Listing.findById(req.params.id);
+    let newReview = await Review(req.body.Review);
+    console.log(newReview);
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+
+    res.redirect(`/listing/${listing._id}`);
+})
 
 
 //"*" valid before express v5 
