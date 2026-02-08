@@ -9,7 +9,7 @@ body {
     flex: 1;
 }
 
-.card {
+.listing-card {
     border: none !important;
 }
 
@@ -28,7 +28,9 @@ body {
 .nav-link {
     color: #222222 !important;
 }
-
+.container-fluid{
+    background-color: white !important;
+}
 /*------------styling footer----------*/
 .f-info-links a {
     text-decoration: none;
@@ -141,4 +143,9 @@ body {
 .show-card {
     padding-left: 0 !important;
     padding-right: 0 !important;
+    border: none !important;
+}
+/*----------styling review card---------*/
+.review-card{
+    border: #222222 !important;
 }

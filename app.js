@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-const Listing = require("./models/listing");
+const Listing = require("./models/listing.js");
 const Review = require("./models/reviews.js");
 const path = require("path");
 const wrapAsync = require("./utils/wrapAsync.js");
@@ -48,20 +48,20 @@ app.get("/", (req, res) => {
 //----------function for server side validation using JOI-----------
 
 const validateListing = (req, res, next) => {
-    let {error} = listingSchema.validate(req.body);
+    let { error } = listingSchema.validate(req.body);
     let errorMsg = error.details.map((el) => el.message).join(",");
     if (error) {
-        throw new expressError(400,errorMsg);
-    }else{
+        throw new expressError(400, errorMsg);
+    } else {
         next();
     }
 }
 const validateReview = (req, res, next) => {
-    let {error} = reviewSchema.validate(req.body);
+    let { error } = reviewSchema.validate(req.body);
     let errorMsg = error.details.map((el) => el.message).join(",");
     if (error) {
-        throw new expressError(400,errorMsg);
-    }else{
+        throw new expressError(400, errorMsg);
+    } else {
         next();
     }
 }
@@ -82,7 +82,7 @@ app.get("/listings/new", (req, res) => {
 
 //---------edit route---------
 
-app.get("/listing/:id/edit", wrapAsync(async (req, res) => {
+app.get("/listing/:id/edit",validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
     res.render("./listings/edit.ejs", { listing });
@@ -90,7 +90,7 @@ app.get("/listing/:id/edit", wrapAsync(async (req, res) => {
 
 //---------update route--------
 
-app.put("/listings/:id",validateListing, wrapAsync(async (req, res) => {
+app.put("/listings/:id", validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect("/listings");
@@ -107,13 +107,13 @@ app.delete("/listing/:id/delete", wrapAsync(async (req, res) => {
 
 app.get("/listing/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("./listings/show.ejs", { listing });
 }));
 
 //----------create route------------
 
-app.post("/listing/new",validateListing, wrapAsync(async (req, res, next) => {
+app.post("/listing/new", wrapAsync(async (req, res, next) => {
 
     // let {title,description,image,price,location,country} = req.params; first method is this but to ignore we make objects in new ejs file
 
@@ -122,7 +122,9 @@ app.post("/listing/new",validateListing, wrapAsync(async (req, res, next) => {
     res.redirect("/listings");
 }));
 
-app.post("/listing/:id/reviews",validateReview,wrapAsync(async (req,res)=>{
+//---------review route-------------
+
+app.post("/listing/:id/reviews", wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     let newReview = await Review(req.body.Review);
     console.log(newReview);
@@ -132,6 +134,15 @@ app.post("/listing/:id/reviews",validateReview,wrapAsync(async (req,res)=>{
 
     res.redirect(`/listing/${listing._id}`);
 }));
+
+//---------review delete route-----------
+
+app.delete("/listing/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listing/${id}`);
+}))
 
 
 //"*" valid before express v5 
