@@ -2,12 +2,12 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-const Listing = require("./models/listing.js");
 const Review = require("./models/reviews.js");
 const path = require("path");
-const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/expressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
+const listings = require("./routes/listing.js");
+const reviews = require("./routes/review.js");
 
 //ejs-mate is used to make layout boilerplate by eliminating common lines for example navbar will be same on different pages
 
@@ -30,9 +30,11 @@ main()
         console.log(err);
     });
 
+
 //---------adding ejs template-------
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
 
 //--------- It decodes the URL-encoded string---------
 app.use(express.urlencoded({ extended: true }));
@@ -40,109 +42,17 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+//-----root route---------
 
 app.get("/", (req, res) => {
     res.redirect("/listings")
 });
 
-//----------function for server side validation using JOI-----------
 
-const validateListing = (req, res, next) => {
-    let { error } = listingSchema.validate(req.body);
-    let errorMsg = error.details.map((el) => el.message).join(",");
-    if (error) {
-        throw new expressError(400, errorMsg);
-    } else {
-        next();
-    }
-}
-const validateReview = (req, res, next) => {
-    let { error } = reviewSchema.validate(req.body);
-    let errorMsg = error.details.map((el) => el.message).join(",");
-    if (error) {
-        throw new expressError(400, errorMsg);
-    } else {
-        next();
-    }
-}
+//---------listing routes----------
 
-//-----------index route-----------
-
-app.get("/listings", wrapAsync(async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("./listings/index.ejs", { allListings });
-}));
-
-//---------new listing route------------
-//we are adding this above shown route because /listings/new directing us to listing/:id
-
-app.get("/listings/new", (req, res) => {
-    res.render("./listings/new.ejs");
-});
-
-//---------edit route---------
-
-app.get("/listing/:id/edit",validateListing, wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id);
-    res.render("./listings/edit.ejs", { listing });
-}));
-
-//---------update route--------
-
-app.put("/listings/:id", validateListing, wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-    res.redirect("/listings");
-}));
-//----------delete route---------
-
-app.delete("/listing/:id/delete", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndDelete(id);
-    res.redirect("/listings");
-}));
-
-//----------show route-------------
-
-app.get("/listing/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
-    res.render("./listings/show.ejs", { listing });
-}));
-
-//----------create route------------
-
-app.post("/listing/new", wrapAsync(async (req, res, next) => {
-
-    // let {title,description,image,price,location,country} = req.params; first method is this but to ignore we make objects in new ejs file
-
-    let newListing = new Listing(req.body.listing);
-    await newListing.save();
-    res.redirect("/listings");
-}));
-
-//---------review route-------------
-
-app.post("/listing/:id/reviews", wrapAsync(async (req, res) => {
-    let listing = await Listing.findById(req.params.id);
-    let newReview = await Review(req.body.Review);
-    console.log(newReview);
-    listing.reviews.push(newReview);
-    await newReview.save();
-    await listing.save();
-
-    res.redirect(`/listing/${listing._id}`);
-}));
-
-//---------review delete route-----------
-
-app.delete("/listing/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
-    let { id, reviewId } = req.params;
-    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-    await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/listing/${id}`);
-}))
+app.use("/", listings);
+app.use("/", reviews);
 
 
 //"*" valid before express v5 
