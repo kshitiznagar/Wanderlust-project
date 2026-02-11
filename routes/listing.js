@@ -33,7 +33,7 @@ router.get("/listings/new", (req, res) => {
 
 //---------edit route---------
 
-router.get("/listing/:id/edit", validateListing, wrapAsync(async (req, res) => {
+router.get("/listing/:id/edit", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
     res.render("./listings/edit.ejs", { listing });
@@ -44,6 +44,7 @@ router.get("/listing/:id/edit", validateListing, wrapAsync(async (req, res) => {
 router.put("/listings/:id", validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    req.flash("success","Edited successfully");
     res.redirect("/listings");
 }));
 //----------delete route---------
@@ -51,6 +52,7 @@ router.put("/listings/:id", validateListing, wrapAsync(async (req, res) => {
 router.delete("/listing/:id/delete", wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
+    req.flash("success","Deleted successfully!");
     res.redirect("/listings");
 }));
 
@@ -68,8 +70,9 @@ router.post("/listing/new", wrapAsync(async (req, res, next) => {
 
     // let {title,description,image,price,location,country} = req.params; first method is this but to ignore we make objects in new ejs file
 
-    let newListing = new Listing(req.body.listing);
+    const newListing = new Listing(req.body.listing);
     await newListing.save();
+    req.flash("success","New place is added!");
     res.redirect("/listings");
 }));
 
