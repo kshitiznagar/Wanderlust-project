@@ -13,10 +13,14 @@ const Review = require("./models/reviews.js");
 const path = require("path");
 const expressError = require("./utils/expressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingRouter = require("./routes/listing.js");
+const reviewRouter = require("./routes/review.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+const userRouter = require("./routes/user.js");
 
 const sessionOptions = {
     secret: "mysupersecretstring",
@@ -24,17 +28,33 @@ const sessionOptions = {
     saveUninitialized: true,
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-        maxAge : 7 * 24 * 60 * 60 * 1000,
-        httpOnly : true
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true
     }
 };
 app.use(session(sessionOptions));
 app.use(flash());
 
-app.use((req,res,next) => {
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());//to store info about user in session is known as serialise user
+passport.deserializeUser(User.deserializeUser());//and to remove user in session is known as deserialise user
+
+app.use((req, res, next) => {
     res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
     next();
 })
+
+// app.get("/demouser",async(req,res)=>{
+//     let fakeUser = new User({
+//         email : "kshitiznagar2003@gmail.com",
+//         username : "kshitiz",
+//     });
+//     let registeredUser = await User.register(fakeUser,"helloworld");
+//     res.send(registeredUser);
+// });
 
 
 async function main() {
@@ -70,8 +90,9 @@ app.get("/", (req, res) => {
 
 //---------listing routes----------
 
-app.use("/", listings);
-app.use("/", reviews);
+app.use("/", listingRouter);
+app.use("/", reviewRouter);
+app.use("/",userRouter);
 
 
 //"*" valid before express v5 
