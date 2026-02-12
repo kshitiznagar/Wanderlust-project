@@ -7,8 +7,17 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/listings">All listings</a>
-                <a class="nav-link" href="/listings/new">New listing</a>
+                <a class="nav-link" href="/listings">All Homes</a>
+                <a class="nav-link" href="/listings/new">New Home</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <% if(!currUser){ %>
+                    <a class="nav-link" href="/signup">Sign up</a>
+                    <a class="nav-link" href="/login">Log in</a>
+                    <%}%>
+                        <% if(currUser){ %>
+                            <a class="nav-link" href="/logout">Log out</a>
+                            <%}%>
             </div>
         </div>
     </div>

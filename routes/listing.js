@@ -4,6 +4,7 @@ const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const expressError = require("../utils/expressError.js");
 const { listingSchema } = require("../schema.js");
+const {isLoggedIn} = require("../middlewares.js");
 
 //--------validations for listing using JOI-----------
 
@@ -27,13 +28,13 @@ router.get("/listings", wrapAsync(async (req, res) => {
 //---------new listing route------------
 //we are adding this above shown route because /listings/new directing us to listing/:id
 
-router.get("/listings/new", (req, res) => {
+router.get("/listings/new", isLoggedIn,(req, res) => {
     res.render("./listings/new.ejs");
 });
 
 //---------edit route---------
 
-router.get("/listing/:id/edit", wrapAsync(async (req, res) => {
+router.get("/listing/:id/edit",isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findById(id);
     if(!listing){
@@ -45,7 +46,7 @@ router.get("/listing/:id/edit", wrapAsync(async (req, res) => {
 
 //---------update route--------
 
-router.put("/listings/:id", wrapAsync(async (req, res) => {
+router.put("/listings/:id",isLoggedIn,wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     req.flash("success","Edited successfully");
@@ -53,7 +54,7 @@ router.put("/listings/:id", wrapAsync(async (req, res) => {
 }));
 //----------delete route---------
 
-router.delete("/listing/:id/delete", wrapAsync(async (req, res) => {
+router.delete("/listing/:id/delete",isLoggedIn,wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndDelete(id);
     req.flash("success","Deleted successfully!");
@@ -74,7 +75,7 @@ router.get("/listing/:id", wrapAsync(async (req, res) => {
 
 //----------create route------------
 
-router.post("/listing/new", wrapAsync(async (req, res, next) => {
+router.post("/listing/new",isLoggedIn,wrapAsync(async (req, res, next) => {
 
     // let {title,description,image,price,location,country} = req.params; first method is this but to ignore we make objects in new ejs file
 
