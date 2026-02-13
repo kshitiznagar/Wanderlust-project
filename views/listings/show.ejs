@@ -39,42 +39,45 @@
                 <% } %>
         </div>
         <hr>
-        <div class="col-8 offset-3">
-            <h4>Leave a review</h4>
-            <form action="/listing/<%=listing._id%>/reviews" class="mb-3 needs-validation" method="post" novalidate>
-                <div class="mb-3 mt-3">
-                    <label for="rating" class="form-label">Rating</label>
-                    <input type="range" name="Review[rating]" min="1" max="5" id="rating" class="form-range" required>
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="comment" class="form-label">Comments</label>
-                    <textarea name="Review[comment]" id="comment" rows="3" cols="20" class="form-control"
-                        required></textarea>
-                    <div class="invalid-feedback">Please write your thoughts about place</div>
-                </div>
-                <button class="btn btn-outline-dark">Submit</button>
-            </form>
-            <hr>
-            <p>All reviews</p>
-            <div class="row">
-                <% for(review of listing.reviews) { %>
-                    <div class="card col-5 me-3 mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">John Doe</h5>
-                            <p class="card-text">
-                                <%=review.comment%>
-                            </p>
-                            <p class="card-text">
-                                <%=review.rating%> Stars
-                            </p>
-                            <form action="/listing/<%=listing._id%>/reviews/<%=review._id%>?_method=delete" class="mb-2"
-                                method="post">
-                                <button class="btn btn-sm btn-dark">Delete</button>
-                            </form>
-                        </div>
+        <div class="col-6 offset-3">
+            <% if(currUser){ %>
+                <h4>Leave a review</h4>
+                <form action="/listing/<%=listing._id%>/reviews" class="mb-3 needs-validation" method="post" novalidate>
+                    <div class="mb-3 mt-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <input type="range" name="Review[rating]" min="1" max="5" id="rating" class="form-range"
+                            required>
                     </div>
-                    <% } %>
-            </div>
+                    <div class="mb-3 mt-3">
+                        <label for="comment" class="form-label">Comments</label>
+                        <textarea name="Review[comment]" id="comment" rows="3" cols="20" class="form-control"
+                            required></textarea>
+                        <div class="invalid-feedback">Please write your thoughts about place</div>
+                    </div>
+                    <button class="btn btn-outline-dark">Submit</button>
+                </form>
+                <% } %>
+                    <hr>
+                    <p>All reviews</p>
+                    <div class="row">
+                        <% for(review of listing.reviews) { %>
+                            <div class="card col-5 me-3 mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">@<%=review.author.username%></h5>
+                                    <p class="card-text">
+                                        <%=review.comment%>
+                                    </p>
+                                    <p class="card-text">
+                                        <%=review.rating%> Stars
+                                    </p>
+                                    <form action="/listing/<%=listing._id%>/reviews/<%=review._id%>?_method=delete"
+                                        class="mb-2" method="post">
+                                        <button class="btn btn-sm btn-dark">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
         </div>
 
     </body>

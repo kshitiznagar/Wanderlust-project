@@ -2,21 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const expressError = require("../utils/expressError.js");
-const { listingSchema } = require("../schema.js");
-const {isLoggedIn} = require("../middlewares.js");
+const {isLoggedIn,isOwner,validateListing} = require("../middlewares.js");
 
-//--------validations for listing using JOI-----------
-
-const validateListing = (req, res, next) => {
-    let { error } = listingSchema.validate(req.body);
-    let errorMsg = error.details.map((el) => el.message).join(",");
-    if (error) {
-        throw new expressError(400, errorMsg);
-    } else {
-        next();
-    }
-}
 
 //-----------index route-----------
 
@@ -46,11 +33,11 @@ router.get("/listing/:id/edit",isLoggedIn, wrapAsync(async (req, res) => {
 
 //---------update route--------
 
-router.put("/listings/:id",isLoggedIn,wrapAsync(async (req, res) => {
+router.put("/listings/:id",isLoggedIn,isOwner,wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     req.flash("success","Edited successfully");
-    res.redirect("/listings");
+    res.redirect(`/listings/${id}`);
 }));
 //----------delete route---------
 
@@ -65,7 +52,7 @@ router.delete("/listing/:id/delete",isLoggedIn,wrapAsync(async (req, res) => {
 
 router.get("/listing/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews").populate("owner");
+    const listing = await Listing.findById(id).populate({path : "reviews", populate: {path : "author"}}).populate("owner");
     if(!listing){
         req.flash("error","Place was deleted");
         res.redirect("/listings");
