@@ -11,13 +11,16 @@
             <div class="card col-6 offset-3 show-card">
                 <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="hotel image">
                 <div class="card-body">
+                    <p class="card-text">Owned by :- <i><%=listing.owner.username%></i></p>
                     <p class="card-text">
-                        <b>
-                        </b><br>
-                        <%=listing.description%> <br>
-                            &#8377; <%=listing.price.toLocaleString("en-IN")%>/night <br>
-                                <%=listing.location%> <br>
-                                    <%=listing.country%> <br>
+                        <%=listing.description%>
+                    </p>
+                    <p class="card-text">&#8377; <%=listing.price.toLocaleString("en-IN")%>/night </p>
+                    <p class="card-text">
+                        <%=listing.location%>
+                    </p>
+                    <p class="card-text">
+                        <%=listing.country%>
                     </p>
                 </div>
             </div>
@@ -60,7 +63,8 @@
                             <p class="card-text">
                                 <%=review.rating%> Stars
                             </p>
-                            <form action="/listing/<%=listing._id%>/reviews/<%=review._id%>?_method=delete" class="mb-2" method="post">
+                            <form action="/listing/<%=listing._id%>/reviews/<%=review._id%>?_method=delete" class="mb-2"
+                                method="post">
                                 <button class="btn btn-sm btn-dark">Delete</button>
                             </form>
                         </div>

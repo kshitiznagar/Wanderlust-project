@@ -65,7 +65,7 @@ router.delete("/listing/:id/delete",isLoggedIn,wrapAsync(async (req, res) => {
 
 router.get("/listing/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id).populate("reviews").populate("owner");
     if(!listing){
         req.flash("error","Place was deleted");
         res.redirect("/listings");
@@ -80,6 +80,7 @@ router.post("/listing/new",isLoggedIn,wrapAsync(async (req, res, next) => {
     // let {title,description,image,price,location,country} = req.params; first method is this but to ignore we make objects in new ejs file
 
     const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id; 
     await newListing.save();
     req.flash("success","New place is added!");
     res.redirect("/listings");
