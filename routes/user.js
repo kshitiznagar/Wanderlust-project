@@ -7,13 +7,13 @@ const { reviewSchema } = require("../schema.js");
 const { saveRedirectUrl } = require("../middlewares.js");
 const usersController = require("../controllers/users.js");
 
-router.get("/signup",usersController.renderSignUpForm);
+router.route("/signup")
+.get(usersController.renderSignUpForm)
+.post(wrapAsync(usersController.signUpPost));
 
-router.post("/signup", wrapAsync(usersController.signUpPost));
-
-router.get("/login", usersController.renderLogInForm);
-
-router.post("/login", saveRedirectUrl,
+router.route("/login")
+.get(usersController.renderLogInForm)
+.post(saveRedirectUrl,
     passport.authenticate("local", {
         failureRedirect: '/login',
         failureFlash: true
