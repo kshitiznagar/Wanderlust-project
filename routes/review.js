@@ -9,7 +9,7 @@ const { isLoggedIn, isReviewAuthor } = require("../middlewares.js");
 const reviewControllers = require("../controllers/reviews.js");
 
 
-//----------function for server side validation using JOI-----------
+//----------function for server side validation using JOI-----------//
 
 // const validateReview = (req, res, next) => {
 //     let { error } = reviewSchema.validate(req.body);
@@ -22,11 +22,11 @@ const reviewControllers = require("../controllers/reviews.js");
 //     }
 // }
 
-//---------review route-------------
+//---------review route-------------//
 
 router.post("/listing/:id/reviews",isLoggedIn,wrapAsync(reviewControllers.createReview));
 
-//---------review delete route-----------
+//---------review delete route-----------//
 
 router.delete("/listing/:id/reviews/:reviewId",isLoggedIn,isReviewAuthor,wrapAsync(reviewControllers.reviewDelete));
 

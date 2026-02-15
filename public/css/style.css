@@ -149,3 +149,7 @@ body {
 .review-card{
     border: #222222 !important;
 }
+.review-date{
+    font-size: 13px !important;
+    opacity: 0.7;
+}
