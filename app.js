@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+
 //ejs-mate is used to make layout boilerplate by eliminating common lines for example navbar will be same on different pages
 
 const ejsMate = require("ejs-mate");
+
 //method override is used to transform post req into put req
 
 const methodOverride = require("method-override");
@@ -57,7 +59,6 @@ app.use((req, res, next) => {
 //     res.send(registeredUser);
 // });
 
-
 async function main() {
     await mongoose.connect(MONGO_URL);
 }
@@ -75,8 +76,8 @@ main()
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-
 //--------- It decodes the URL-encoded string---------
+
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
@@ -88,15 +89,14 @@ app.get("/", (req, res) => {
     res.redirect("/listings")
 });
 
-
 //---------listing routes----------
 
 app.use("/", listingRouter);
 app.use("/", reviewRouter);
 app.use("/",userRouter);
 
-
 //"*" valid before express v5 
+
 app.all("/*splat", (req, res, next) => {
     next(new expressError(404, "Page not found"));
 });
