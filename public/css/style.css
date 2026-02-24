@@ -52,12 +52,14 @@ body {
     justify-content: center;
 }
 
-.f-info-socials i {
+.f-info-socials i{
     margin-right: 1rem;
     font-size: 1.2rem;
     opacity: 0.7;
 }
-
+.f-info-socials a{
+    color: black;
+}
 .f-info-socials i:hover {
     cursor: pointer;
     opacity: 1;
