@@ -1,0 +1,221 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+.listing-card {
+    border: none !important;
+}
+
+/*-------styling navbar-------*/
+
+.navbar {
+    height: 5rem;
+    background-color: white !important;
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+.container-fluid {
+    background-color: white !important;
+}
+
+/*------------styling footer----------*/
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    opacity: 0.7;
+}
+
+.f-info-socials i:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.f-info {
+    text-align: center;
+    display: flex;
+    height: 9rem;
+    background-color: #ebebeb;
+    flex-wrap: wrap;
+    align-items: space-evenly;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/*-------styling index page--------*/
+.index-heading {
+    padding: 0 !important;
+}
+
+.row a {
+    text-decoration: none;
+}
+
+.index-card {
+    height: 25rem !important;
+    width: 20rem !important;
+    border: none !important;
+    margin-bottom: 2rem;
+    margin-right: 10px !important;
+}
+
+.card-body {
+    border-radius: 1rem !important;
+    text-align: left;
+    padding: 0 !important;
+}
+
+.card-img-top {
+    margin-top: 10px;
+    height: 20rem;
+    width: 100% !important;
+    border-radius: 1rem !important;
+    align-self: center;
+    object-fit: cover;
+    margin-right: 10px !important;
+}
+
+.card-text {
+    font-weight: 400 !important;
+}
+
+.card-img-overlay {
+    opacity: 0;
+    left: -5px !important;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+#filters {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    align-items: center;
+}
+
+.filter {
+    text-align: center;
+    margin-right: 2rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+}
+
+.filter:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.filter p {
+    font-size: 0.85rem;
+}
+
+.tax-info {
+    display: none;
+}
+
+.tax-toggle {
+    border: 1px solid rgba(8, 6, 6, 0.5);
+    border-radius: 1rem;
+    height: 3rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+}
+.filter div a {
+    color : #fe424d;
+}
+
+/*-------styling new hotel adding page-------*/
+/*most of stylin is done by bootstrap classes*/
+.add-btn,
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+    width: 6rem !important;
+
+}
+
+.edit-btn a {
+    text-decoration: none;
+    color: white;
+}
+
+/*-----styling show page-------*/
+.show-img {
+    height: 40vh !important;
+    width: 100% !important;
+}
+
+.btns {
+    display: flex;
+    padding: 0 !important;
+}
+
+.show-card {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border: none !important;
+}
+
+/*----------styling review card---------*/
+.review-card {
+    border: #222222 !important;
+}
+
+.review-date {
+    font-size: 13px !important;
+    opacity: 0.7;
+}
+
+.image-preview img {
+    height: 10rem !important;
+    border-radius: 1rem;
+}
+
+.card {
+    border: none !important;
+}
+
+/*-------map styline-------*/
+#map {
+    height: 45vh;
+    width: 80vh;
+}
